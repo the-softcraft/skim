@@ -1,4 +1,4 @@
-package com.fazlerabbi.silicon;
+package com.fazlerabbi.skim;
 
 import android.app.Activity;
 import android.content.Intent;

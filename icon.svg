@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1024"
+     height="1024"
+     viewBox="0 0 1024 1024">
+
+  <!-- Background -->
+  <rect
+    x="80" y="80"
+    width="864" height="864"
+    rx="205"
+    fill="#E53935"/>
+
+  <!-- Main video card -->
+  <g transform="rotate(3 512 500)">
+
+    <rect
+      x="220" y="225"
+      width="584" height="560"
+      rx="58"
+      fill="#F7F3E8"
+      stroke="#17191D"
+      stroke-width="27"/>
+
+    <!-- YouTube video frame -->
+    <rect
+      x="278" y="285"
+      width="468" height="255"
+      rx="42"
+      fill="#17191D"/>
+
+    <!-- Play button -->
+    <path
+      d="M470 350
+         L470 475
+         Q470 496 489 484
+         L605 414
+         Q626 401 605 388
+         L489 318
+         Q470 307 470 350 Z"
+      fill="#E53935"/>
+
+    <!-- Summary lines -->
+    <path
+      d="M310 605 H704"
+      stroke="#17191D"
+      stroke-width="27"
+      stroke-linecap="round"/>
+
+    <path
+      d="M310 665 H650"
+      stroke="#17191D"
+      stroke-width="27"
+      stroke-linecap="round"/>
+
+    <path
+      d="M310 725 H575"
+      stroke="#17191D"
+      stroke-width="27"
+      stroke-linecap="round"/>
+
+  </g>
+
+  <!-- Skimming motion -->
+  <path
+    d="M585 770
+       C640 738 700 700 756 646"
+    fill="none"
+    stroke="#F6B73C"
+    stroke-width="36"
+    stroke-linecap="round"/>
+
+  <path
+    d="M708 646
+       H756
+       L742 696"
+    fill="none"
+    stroke="#F6B73C"
+    stroke-width="36"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+</svg>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF38BDF8</color>
-    <color name="colorPrimaryDark">#FF0A0D0C</color>
-    <color name="colorAccent">#FFE8C87E</color>
-    <color name="app_window_bg">#FF0B1020</color>
+    <color name="colorPrimary">#FFD32F2F</color>
+    <color name="colorPrimaryDark">#FFD32F2F</color>
+    <color name="colorAccent">#FFD32F2F</color>
+    <color name="app_window_bg">#FFF7F6F3</color>
 
     <!-- Status/navigation bar tint. Light values here, night values in values-night. -->
-    <color name="system_bar_bg">#FFF7F9F7</color>
+    <color name="system_bar_bg">#FFF7F6F3</color>
 
     <!-- Splash: LIGHT theme (default). Night values live in values-night. -->
-    <color name="splash_bg">#F7F9F7</color>
-    <color name="splash_text">#0A0F0C</color>
-    <color name="splash_dot">#DDE4DE</color>
-    <color name="splash_progress">#38BDF8</color>
-    <color name="splash_progress_track">#2238BDF8</color>
+    <color name="splash_bg">#F7F6F3</color>
+    <color name="splash_text">#1A1C19</color>
+    <color name="splash_dot">#E4E2DB</color>
+    <color name="splash_progress">#D32F2F</color>
+    <color name="splash_progress_track">#22D32F2F</color>
 </resources>
