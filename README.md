@@ -38,13 +38,12 @@ Skim turns any YouTube video into a short summary. Paste a link and it fetches t
 
 ## Screenshots
 
-<!-- Add screenshots here -->
-
 <p align="left">
-  <img src="screenshots/one.png" height="256" />
-  <img src="screenshots/two.png" height="256" />
-  <img src="screenshots/three.png" height="256" />
-  <img src="screenshots/four.png" height="256" />
+  <img src="screenshots/home1.png" height="256" />
+  <img src="screenshots/home2.png" height="256" />
+  <img src="screenshots/history.png" height="256" />
+  <img src="screenshots/settings.png" height="256" />
+  <img src="screenshots/fullscrn.png" height="256" />
 </p>
 
 ## Features
