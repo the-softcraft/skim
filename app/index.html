@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bare Web Template</title>
+    <meta name="color-scheme" content="light dark" />
+    <title>Skim — YouTube summarizer</title>
     <script>
       // Apply the saved theme before first paint, so there is no flash.
       try {
@@ -14,13 +15,123 @@
         if (dark) document.documentElement.classList.add("dark");
       } catch (e) {}
     </script>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1024 1024'%3E%3Crect x='80' y='80' width='864' height='864' rx='205' fill='%23E53935'/%3E%3Cg transform='rotate(3 512 500)'%3E%3Crect x='220' y='225' width='584' height='560' rx='58' fill='%23F7F3E8' stroke='%2317191D' stroke-width='27'/%3E%3Crect x='278' y='285' width='468' height='255' rx='42' fill='%2317191D'/%3E%3Cpath d='M470 350 L470 475 Q470 496 489 484 L605 414 Q626 401 605 388 L489 318 Q470 307 470 350 Z' fill='%23E53935'/%3E%3Cpath d='M310 605H704' stroke='%2317191D' stroke-width='27' stroke-linecap='round'/%3E%3Cpath d='M310 665H650' stroke='%2317191D' stroke-width='27' stroke-linecap='round'/%3E%3Cpath d='M310 725H575' stroke='%2317191D' stroke-width='27' stroke-linecap='round'/%3E%3C/g%3E%3Cpath d='M585 770C640 738 700 700 756 646' fill='none' stroke='%23F6B73C' stroke-width='36' stroke-linecap='round'/%3E%3Cpath d='M708 646H756L742 696' fill='none' stroke='%23F6B73C' stroke-width='36' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./style.css" />
+    <style id="colorOverride"></style>
+    <script>
+      // Apply saved custom theme colours before first paint.
+      (function () {
+        try {
+          var c = JSON.parse(localStorage.getItem("skim.colors") || "{}");
+          var hex = function (v) {
+            return /^#[0-9a-f]{6}$/i.test(v || "") ? v : "";
+          };
+          if (!hex(c.lightBg) && !hex(c.lightSurface) && !hex(c.darkBg) && !hex(c.darkSurface))
+            return;
+          var css =
+            ":root{--bg:" +
+            (hex(c.lightBg) || "#f7f6f3") +
+            ";--surface:" +
+            (hex(c.lightSurface) || "#ffffff") +
+            "}html.dark{--bg:" +
+            (hex(c.darkBg) || "#0a0a0a") +
+            ";--surface:" +
+            (hex(c.darkSurface) || "#121212") +
+            "}";
+          document.getElementById("colorOverride").textContent = css;
+        } catch (e) {}
+      })();
+    </script>
   </head>
-  <body>
-    <header class="bar">
-      <span class="brand">Bare Template</span>
+  <body data-view="home">
+    <header class="topbar">
+      <div class="brand">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 1024 1024">
+            <rect
+              x="80"
+              y="80"
+              width="864"
+              height="864"
+              rx="205"
+              fill="#E53935"
+            />
+            <g transform="rotate(3 512 500)">
+              <rect
+                x="220"
+                y="225"
+                width="584"
+                height="560"
+                rx="58"
+                fill="#F7F3E8"
+                stroke="#17191D"
+                stroke-width="27"
+              />
+              <rect
+                x="278"
+                y="285"
+                width="468"
+                height="255"
+                rx="42"
+                fill="#17191D"
+              />
+              <path
+                d="M470 350 L470 475 Q470 496 489 484 L605 414 Q626 401 605 388 L489 318 Q470 307 470 350 Z"
+                fill="#E53935"
+              />
+              <path
+                d="M310 605H704"
+                stroke="#17191D"
+                stroke-width="27"
+                stroke-linecap="round"
+              />
+              <path
+                d="M310 665H650"
+                stroke="#17191D"
+                stroke-width="27"
+                stroke-linecap="round"
+              />
+              <path
+                d="M310 725H575"
+                stroke="#17191D"
+                stroke-width="27"
+                stroke-linecap="round"
+              />
+            </g>
+            <path
+              d="M585 770C640 738 700 700 756 646"
+              fill="none"
+              stroke="#F6B73C"
+              stroke-width="36"
+              stroke-linecap="round"
+            />
+            <path
+              d="M708 646H756L742 696"
+              fill="none"
+              stroke="#F6B73C"
+              stroke-width="36"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <span class="brand-text">
+          <b>Skim</b>
+          <small>YouTube summarizer</small>
+        </span>
+      </div>
+
       <button
-        id="theme-toggle"
+        id="themeBtn"
         class="icon-btn"
         type="button"
         aria-label="Switch to dark mode"
@@ -38,17 +149,254 @@
       </button>
     </header>
 
+    <p id="offline" class="offline" hidden>
+      You're offline. Summaries need a connection.
+    </p>
+
     <main>
-      <section class="card">
-        <h1>Hello</h1>
-        <p class="muted">
-          Everything is local: <code>index.html</code>, <code>style.css</code>,
-          <code>script.js</code>. No CDN, no icons to download (inline SVG only).
+      <!-- ---------------- HOME ---------------- -->
+      <section id="view-home" class="view">
+        <div class="card">
+          <p class="eyebrow">Video link</p>
+
+          <div class="url-row">
+            <input
+              id="url"
+              type="url"
+              inputmode="url"
+              placeholder="https://youtube.com/watch?v=…"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="YouTube video link"
+            />
+            <button id="pasteBtn" class="btn-ghost" type="button">Paste</button>
+          </div>
+
+          <div id="preview" class="preview" hidden>
+            <img id="pvImg" alt="" />
+            <p id="pvTxt"></p>
+          </div>
+
+          <p class="eyebrow gap-top">Summary length</p>
+          <div class="seg" role="group" aria-label="Summary length">
+            <button type="button" data-length="short">Short</button>
+            <button type="button" data-length="medium">Medium</button>
+            <button type="button" data-length="detailed">Detailed</button>
+          </div>
+
+          <button id="sumBtn" class="btn-primary" type="button">
+            Summarize
+          </button>
+          <p id="status" class="status" role="status" aria-live="polite"></p>
+        </div>
+
+        <article id="out" class="card out" hidden>
+          <div class="out-head">
+            <img id="outImg" alt="" />
+            <div>
+              <h2 id="outTitle"></h2>
+              <p id="outSub" class="muted"></p>
+            </div>
+          </div>
+
+          <div class="out-actions">
+            <button id="readBtn" class="btn-ghost" type="button">
+              Fullscreen
+            </button>
+            <button id="copyBtn" class="btn-ghost" type="button">Copy</button>
+            <button id="shareBtn" class="btn-ghost" type="button">Share</button>
+            <button id="clearBtn" class="btn-ghost" type="button">Clear</button>
+          </div>
+
+          <div id="summaryBody" class="article"></div>
+        </article>
+
+        <p id="emptyHint" class="hint">
+          Paste a link and Skim reads the transcript for you. Nothing is watched.
         </p>
-        <button id="btn" class="btn" type="button">Click me</button>
-        <p id="out" class="muted" role="status"></p>
+      </section>
+
+      <!-- ---------------- HISTORY ---------------- -->
+      <section id="view-history" class="view" hidden>
+        <div class="view-head">
+          <h1>History</h1>
+          <button id="histClear" class="btn-ghost small" type="button">
+            Clear all
+          </button>
+        </div>
+        <ul id="histList" class="hist-list"></ul>
+      </section>
+
+      <!-- ---------------- SETTINGS ---------------- -->
+      <section id="view-settings" class="view" hidden>
+        <div class="view-head">
+          <h1>Settings</h1>
+        </div>
+
+        <div class="card">
+          <p class="eyebrow">RapidAPI key <span class="tag">transcript</span></p>
+          <input
+            id="rapidKey"
+            class="field mono"
+            type="password"
+            placeholder="x-rapidapi-key"
+            autocomplete="off"
+            spellcheck="false"
+          />
+
+          <p class="eyebrow gap-top">Gemini key <span class="tag">summary</span></p>
+          <input
+            id="geminiKey"
+            class="field mono"
+            type="password"
+            placeholder="AIza…"
+            autocomplete="off"
+            spellcheck="false"
+          />
+
+          <p class="eyebrow gap-top">Gemini model</p>
+          <select id="modelSel" class="field"></select>
+          <input
+            id="modelCustom"
+            class="field mono gap-top-sm"
+            type="text"
+            placeholder="custom-model-name"
+            autocomplete="off"
+            spellcheck="false"
+            hidden
+          />
+
+          <p class="eyebrow gap-top">Summary language</p>
+          <select id="langSel" class="field"></select>
+
+          <div class="btn-row gap-top">
+            <button id="saveBtn" class="btn-primary inline" type="button">
+              Save
+            </button>
+            <button id="removeKeys" class="btn-ghost" type="button">
+              Remove keys
+            </button>
+          </div>
+
+          <p class="hint gap-top">
+            Keys stay on this device only. Transcript by RapidAPI, summary by
+            Gemini.
+          </p>
+        </div>
+
+        <div class="card">
+          <p class="eyebrow">Theme colors</p>
+
+          <label class="color-row">
+            <span>Light · page</span>
+            <input id="cLightBg" type="color" />
+          </label>
+          <label class="color-row">
+            <span>Light · cards</span>
+            <input id="cLightSurface" type="color" />
+          </label>
+          <label class="color-row">
+            <span>Dark · page</span>
+            <input id="cDarkBg" type="color" />
+          </label>
+          <label class="color-row">
+            <span>Dark · cards</span>
+            <input id="cDarkSurface" type="color" />
+          </label>
+
+          <div class="btn-row gap-top">
+            <button id="colorsReset" class="btn-ghost" type="button">
+              Reset to defaults
+            </button>
+          </div>
+
+          <p class="hint gap-top">
+            Applied instantly and saved on this device.
+          </p>
+        </div>
+      </section>
+
+      <!-- ---------------- ABOUT ---------------- -->
+      <section id="view-about" class="view" hidden>
+        <div class="view-head">
+          <h1>About</h1>
+        </div>
+        <div class="card stack">
+          <p class="about-name">Skim</p>
+          <p class="muted">
+            A YouTube video summarizer. Paste a link, read the gist, skip the
+            video.
+          </p>
+          <p class="muted">
+            Transcript is fetched with RapidAPI, the summary is written by
+            Gemini in the language you pick. Nothing is stored anywhere except
+            this device.
+          </p>
+          <dl class="facts">
+            <div><dt>Version</dt><dd>1.0.0</dd></div>
+            <div><dt>Storage</dt><dd>On device, 20 summaries</dd></div>
+            <div><dt>Built by</dt><dd>Fazle Rabbi</dd></div>
+          </dl>
+        </div>
       </section>
     </main>
+
+    <button id="cancelBtn" class="cancel-fab" type="button" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+      Cancel
+    </button>
+
+    <nav class="tabbar" aria-label="Main">
+      <button type="button" data-tab="home" aria-label="Home" title="Home">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z" />
+        </svg>
+      </button>
+      <button type="button" data-tab="history" aria-label="History" title="History">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1" />
+          <path d="M3 4.5v4.5h4.5" />
+          <path d="M12 8v4.5l3.5 1.8" />
+        </svg>
+      </button>
+      <button type="button" data-tab="settings" aria-label="Settings" title="Settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h7M17 7h3M4 17h3M13 17h7" />
+          <circle cx="14" cy="7" r="2.4" />
+          <circle cx="11" cy="17" r="2.4" />
+        </svg>
+      </button>
+      <button type="button" data-tab="about" aria-label="About" title="About">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v5.5M12 7.8h.01" />
+        </svg>
+      </button>
+    </nav>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- Fullscreen reader -->
+    <div id="reader" class="reader" hidden>
+      <div class="reader-bar">
+        <button id="readerClose" class="icon-btn" type="button" aria-label="Close">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <span id="readerSub" class="muted"></span>
+      </div>
+      <div class="reader-body">
+        <h1 id="readerTitle"></h1>
+        <div id="readerContent" class="article reader-article"></div>
+        <div class="btn-row gap-top">
+          <button id="readerCopy" class="btn-ghost" type="button">Copy</button>
+          <button id="readerShare" class="btn-ghost" type="button">Share</button>
+        </div>
+      </div>
+    </div>
 
     <script src="./script.js"></script>
   </body>
