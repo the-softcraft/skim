@@ -62,6 +62,27 @@ Skim turns any YouTube video into a short summary. Paste a link and it fetches t
 - Offline banner when there's no connection
 - No ads, no account, no cloud sync
 
+## Get your API keys
+
+Skim needs two free API keys. Add both in **Settings** → they stay on this device only.
+
+**1️⃣ YouTube Transcript API Key (RapidAPI)**
+
+1. Visit: https://rapidapi.com/solid-api-solid-api-default/api/youtube-transcript3
+2. Sign in to RapidAPI.
+3. Subscribe to the API (free plan includes 100 requests per month).
+4. Copy your API key.
+5. In Skim, go to Settings, and paste the key there.
+
+**2️⃣ Gemini API Key**
+
+1. Visit Google AI Studio: https://aistudio.google.com/api-keys
+2. Create a new API key.
+3. Copy the key.
+4. Paste it into Skim → Settings.
+
+✅ Setup Complete! Great job 👏
+
 ## Get an APK (`for devs`)
 
 1. Fork / clone this repo.

@@ -941,6 +941,16 @@
     }
   });
 
+  document.querySelectorAll(".ext-link").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      var url = this.getAttribute("href");
+      if (N && N.openUrl) {
+        e.preventDefault();
+        N.openUrl(url);
+      }
+    });
+  });
+
   /* ---------------- offline + tabs ---------------- */
 
   function syncOffline() {
